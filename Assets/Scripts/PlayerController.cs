@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,9 +11,6 @@ public class PlayerController : MonoBehaviour
 	public bool grounded;
 
 	public LayerMask ground;
-	public TextMeshProUGUI scoreText;
-
-	private int score = 0;
 
 	private Rigidbody2D rb;
 	private BoxCollider2D boxCollider;
@@ -51,8 +47,6 @@ public class PlayerController : MonoBehaviour
 	private void OnTriggerEnter2D( Collider2D collision )
 	{
 		Destroy( collision.gameObject );
-		score++;
-		scoreText.text = "Score: " + score;
 	}
 
 	bool isGrounded()
