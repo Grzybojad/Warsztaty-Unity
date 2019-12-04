@@ -1,2 +1,5 @@
-# Warsztaty-Unity-2
-Szkielet projektu Unity na warsztaty
+# Warsztaty Unity
+Projekt Unity do warsztatów koła Silver .net 
+
+# Screenshot
+![Gameplay screenshot](https://i.imgur.com/XcaMtsS.png)
