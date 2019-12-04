@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Diagnostics;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,13 +15,22 @@ public class PlayerController : MonoBehaviour
 
 	private Rigidbody2D rb;
 	private BoxCollider2D boxCollider;
+	private AudioSource audioSource;
+
+	public AudioClip jumpSfx;
+	public AudioClip collectSfx;
+
+	private Stopwatch sw = new Stopwatch();
 
 	// Start is called before the first frame update
 	void Start()
     {
 		rb = GetComponent<Rigidbody2D>();
 		boxCollider = GetComponent<BoxCollider2D>();
-    }
+		audioSource = GetComponent<AudioSource>();
+
+		sw.Start();
+	}
 
 	// FixedUpdate is called every fixed frame-rate frame, use it when using Rigidbody
 	private void FixedUpdate()
@@ -39,14 +49,18 @@ public class PlayerController : MonoBehaviour
     {
 		grounded = isGrounded();
 
-		if( grounded && Input.GetButton( "Jump" ) )
+		if( grounded && Input.GetButton( "Jump" ) && sw.ElapsedMilliseconds > 50 )
+		{
+			sw.Restart();
 			rb.velocity = Vector2.up * jumpForce;
-			//rb.velocity += new Vector2( 0, jumpForce ); //
+			audioSource.PlayOneShot( jumpSfx );
+		}
     }
 
 	private void OnTriggerEnter2D( Collider2D collision )
 	{
 		Destroy( collision.gameObject );
+		audioSource.PlayOneShot( collectSfx );
 	}
 
 	bool isGrounded()
