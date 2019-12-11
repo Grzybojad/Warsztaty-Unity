@@ -41,7 +41,11 @@ public class GameController : MonoBehaviour
 				if( Input.GetKeyDown( KeyCode.R ) )
 				{
 					Time.timeScale = 1;
-					SceneManager.LoadScene( 0 );
+		
+					if( SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1 )
+						SceneManager.LoadScene( SceneManager.GetActiveScene().buildIndex + 1 );
+					else
+						SceneManager.LoadScene( 0 );
 				}
 			}
 		}
