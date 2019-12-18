@@ -16,9 +16,10 @@ public class PlayerController : MonoBehaviour
 	private Rigidbody2D rb;
 	private BoxCollider2D boxCollider;
 	private AudioSource audioSource;
-
+	
 	public AudioClip jumpSfx;
 	public AudioClip collectSfx;
+	public Animator animator;
 
 	private Stopwatch sw = new Stopwatch();
 
@@ -42,6 +43,8 @@ public class PlayerController : MonoBehaviour
 			transform.eulerAngles = new Vector3( 0, 0, 0 );
 		if( moveInput < 0 )
 			transform.eulerAngles = new Vector3( 0, 180, 0 );
+
+		animator.SetFloat( "Speed", Mathf.Abs( moveInput ) );
 	}
 
 	// Update is called once per frame
@@ -54,8 +57,15 @@ public class PlayerController : MonoBehaviour
 			sw.Restart();
 			rb.velocity = Vector2.up * jumpForce;
 			audioSource.PlayOneShot( jumpSfx );
+
+			animator.SetBool( "IsJumping", true );
 		}
-    }
+
+		if( rb.velocity.y < 0.1 )
+			animator.SetBool( "IsJumping", false );
+
+		animator.SetBool( "IsFalling", rb.velocity.y < -0.1 );
+	}
 
 	private void OnTriggerEnter2D( Collider2D collision )
 	{
