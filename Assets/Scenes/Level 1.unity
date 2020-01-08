@@ -6411,5 +6411,11 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1047156097588979608, guid: b51b308e97731d4459dc119572a51bc1,
+        type: 3}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 5476175392431298253, guid: 5628bdf22f84f9346b90fc3640efcb99,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b51b308e97731d4459dc119572a51bc1, type: 3}

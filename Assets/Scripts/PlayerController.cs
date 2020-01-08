@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
 	public AudioClip collectSfx;
 	public Animator animator;
 
+	public GameObject explosion;
+
 	private Stopwatch sw = new Stopwatch();
 
 	// Start is called before the first frame update
@@ -71,6 +73,8 @@ public class PlayerController : MonoBehaviour
 	{
 		Destroy( collision.gameObject );
 		audioSource.PlayOneShot( collectSfx );
+		GameObject expl = Instantiate( explosion, collision.transform.position, explosion.transform.rotation );
+		expl.GetComponent<Explosion>().target = transform;
 	}
 
 	bool isGrounded()
