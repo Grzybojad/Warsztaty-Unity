@@ -83,6 +83,8 @@ MonoBehaviour:
   jumpSfx: {fileID: 8300000, guid: ff9ff42bc90004345a6ea1fdd4e0b26d, type: 3}
   collectSfx: {fileID: 8300000, guid: 5dbf798ed8385cd4b8882e16d1fd419a, type: 3}
   animator: {fileID: 8964442850485932658}
+  explosion: {fileID: 5476175392431298253, guid: 5628bdf22f84f9346b90fc3640efcb99,
+    type: 3}
 --- !u!50 &1047156097588979613
 Rigidbody2D:
   serializedVersion: 4
@@ -102,7 +104,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!82 &1047156097588979612
 AudioSource:
@@ -247,6 +249,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

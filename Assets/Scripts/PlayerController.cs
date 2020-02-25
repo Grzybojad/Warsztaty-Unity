@@ -35,6 +35,12 @@ public class PlayerController : MonoBehaviour
 		sw.Start();
 	}
 
+	public void LoadSaveData( SaveData saveData )
+	{
+		transform.position = saveData.playerPosition;
+		transform.rotation = saveData.playerRotation;
+	}
+
 	// FixedUpdate is called every fixed frame-rate frame, use it when using Rigidbody
 	private void FixedUpdate()
 	{
@@ -67,6 +73,13 @@ public class PlayerController : MonoBehaviour
 			animator.SetBool( "IsJumping", false );
 
 		animator.SetBool( "IsFalling", rb.velocity.y < -0.1 );
+
+
+		// TYMCZASOWE
+		if( Input.GetKeyDown( KeyCode.Alpha5 ) )
+			SaveSystem.Save();
+		if( Input.GetKeyDown( KeyCode.Alpha6 ) )
+			SaveSystem.Load();
 	}
 
 	private void OnTriggerEnter2D( Collider2D collision )

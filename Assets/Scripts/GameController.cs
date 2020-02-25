@@ -7,17 +7,26 @@ public class GameController : MonoBehaviour
 	private int score;
 	private int scoreLimit;
 
+	public GameObject[] collectables;
+
 	public TextMeshProUGUI scoreText;
 	public TextMeshProUGUI restartText;
 
 	public float timeStopSpeed = 0.01f;
 
-    // Start is called before the first frame update
-    void Start()
+	void Awake()
     {
 		score = 0;
-		scoreLimit = GameObject.FindGameObjectsWithTag( "Collectible" ).Length;
+		collectables = GameObject.FindGameObjectsWithTag( "Collectible" );
+		scoreLimit = collectables.Length;
     }
+
+	public void LoadSaveData( SaveData saveData )
+	{
+		for( int i = 0; i < saveData.collectableIDs.Length; i++ )
+			if( saveData.collectableIDs[ i ] == 0 )
+				Destroy( collectables[ i ] );
+	}
 
     // Update is called once per frame
     void Update()
