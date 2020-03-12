@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
 	public LayerMask ground;
 
+	public Joystick joystick;
+
 	private Rigidbody2D rb;
 	private BoxCollider2D boxCollider;
 	private AudioSource audioSource;
@@ -44,7 +46,9 @@ public class PlayerController : MonoBehaviour
 	// FixedUpdate is called every fixed frame-rate frame, use it when using Rigidbody
 	private void FixedUpdate()
 	{
-		float moveInput = Input.GetAxis( "Horizontal" );
+		//float moveInput = Input.GetAxis( "Horizontal" );
+		float moveInput = joystick.Horizontal;
+
 		rb.velocity = new Vector2( moveInput * speed, rb.velocity.y );
 
 		if( moveInput > 0 )
@@ -60,13 +64,10 @@ public class PlayerController : MonoBehaviour
     {
 		grounded = isGrounded();
 
-		if( grounded && Input.GetButton( "Jump" ) && sw.ElapsedMilliseconds > 50 )
+		//if( grounded && Input.GetButton( "Jump" ) && sw.ElapsedMilliseconds > 50 )
+		if( joystick.Vertical > .7f )
 		{
-			sw.Restart();
-			rb.velocity = Vector2.up * jumpForce;
-			audioSource.PlayOneShot( jumpSfx );
-
-			animator.SetBool( "IsJumping", true );
+			Jump();
 		}
 
 		if( rb.velocity.y < 0.1 )
@@ -88,6 +89,19 @@ public class PlayerController : MonoBehaviour
 		audioSource.PlayOneShot( collectSfx );
 		GameObject expl = Instantiate( explosion, collision.transform.position, explosion.transform.rotation );
 		expl.GetComponent<Explosion>().target = transform;
+	}
+
+	public void Jump()
+	{
+		if( grounded && sw.ElapsedMilliseconds > 50 )
+		{
+			sw.Restart();
+			rb.velocity = Vector2.up * jumpForce;
+			audioSource.PlayOneShot( jumpSfx );
+
+			animator.SetBool( "IsJumping", true );
+		}
+		
 	}
 
 	bool isGrounded()
